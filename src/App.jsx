@@ -10,6 +10,8 @@ function App() {
   const [forecast, setForecast] = useState([]);
   const [hourly, setHourly] = useState([]);
   const [error, setError] = useState('');
+  const [showMeModal, setShowMeModal] = useState(false);
+  const [showCompanyModal, setShowCompanyModal] = useState(false);
 
   const fetchWeather = async () => {
     try {
@@ -62,6 +64,7 @@ function App() {
   return (
     <div className="container">
       <h1>🌤️ Weather Forecast App</h1>
+      <p style={{ fontStyle: 'italic', marginBottom: '0.5rem' }}>By Aishwarya Bhargava</p>
       <input
         type="text"
         placeholder="🔍 Enter city, ZIP, landmark, or GPS (lat,lon)"
@@ -71,7 +74,10 @@ function App() {
       <div style={{ marginTop: '1rem' }}>
         <button onClick={fetchWeather}>🔎 Get Weather</button>
         <button onClick={getMyLocationWeather} style={{ marginLeft: '1rem' }}>📍 Use My Location</button>
+        <button onClick={() => setShowMeModal(true)} style={{ marginLeft: '1rem' }}>👩 About Me</button>
+        <button onClick={() => setShowCompanyModal(true)} style={{ marginLeft: '1rem' }}>🏢 About PMA</button>
       </div>
+
       {error && <p className="error">{error}</p>}
 
       {current && (
@@ -111,6 +117,42 @@ function App() {
             </div>
           </div>
         </>
+      )}
+
+      {/* Me Modal */}
+      {showMeModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>👩 About Me</h2>
+            <p>Hi! I'm Aishwarya Bhargava, a passionate developer and AI/ML enthusiast. This project is part of my PMA Bootcamp submission.</p>
+            <div className="button-group">
+              <a href="https://www.linkedin.com/in/aishwarya-bhargava05/" target="_blank">LinkedIn</a>
+              <a href="https://aishwaryabhargava.github.io/portfolio" target="_blank">Portfolio</a>
+              <a href="https://github.com/AishwaryaBhargava" target="_blank">Github</a>
+              <a href="https://drive.google.com/file/d/1avUlVvvZ8sL2paWo039QmMamMaf2c5th/view?usp=drive_link" target="_blank">Resume</a>
+            </div>
+            <button onClick={() => setShowMeModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {/* PMA Modal */}
+      {showCompanyModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>🏢 About PM Accelerator</h2>
+            <p>
+              PM Accelerator is a global career launch platform helping students and early professionals gain practical experience
+              in software development and product management by building real-world AI/ML products.
+            </p>
+            <div className="button-group">
+              <a href="https://www.linkedin.com/company/pmaccelerator" target="_blank">LinkedIn</a>
+              <a href="https://www.pmaccelerator.io/AI-ML-Software-Engineer-Intern" target="_blank">Internship Page</a>
+              <a href="https://www.pmaccelerator.io/" target="_blank">Official Website</a>
+            </div>
+            <button onClick={() => setShowCompanyModal(false)}>Close</button>
+          </div>
+        </div>
       )}
     </div>
   );
